@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+
+        <ol class="breadcrumb my-4">
+            <li class="breadcrumb-item active"><h1>Details</h1><br/>
+                {% if request.user.is_staff %}
+                    <h5 class="text-muted d-block">{{ alerts.comment }}</h5>
+                {% endif %}
+            </li>
+
+        </ol>
+
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'not_reacted' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'not_reacted' %}">Not Reacted</a></li>
+            <li class="breadcrumb-item"><a href="{{ alerts.get_absolute_url }}">Details</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ alerts.AC_NO }}</li>
+            <li class="breadcrumb-item active" aria-current="page">{{ alerts.ac_name }}</li>
+        </ol>
+
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">{{ alerts.AC_NO }}</h1>
+                <p class="lead">{{ alerts.ac_name }}</p>
+            </div>
+        </div>
+
+            <div class='container'>
+    <h3>Branch: <span>{{ alerts.AC_BRANCH }}<span></h3>
+    <h3>Currency: <span>{{ alerts.AC_CCY }}</span></h3>
+    <h3>Foreign Currency: <span>{{ alerts.FCY_AMOUNT }}</span></h3>
+    <h3>Local Currency: <span>{{ alerts.LCY_AMOUNT }}</span><h3>
+    <h3>Value Date: <span>{{ alerts.LCY_AMOUNT }}</span><h3>
+    <h3>PnD Status: <span>{{ alerts.AC_STAT_NO_DR }}</span><h3>
+    <h3> Available balance: <span>{{ alerts.ACY_AVL_BAL }}</span></h3>
+    <h3>Account Class: <span>{{ alerts.ACCOUNT_CLASS }}</span><h3>
+    <h3>Customer Id: <span>{{ alerts.CUST_NO }}</span><h3>
+    <h3>Minimum Balance: <span>{{ alerts.min_balance }}</span><h3>
+    <h3>Total Transactions: <span>{{ alerts.TotalTnx }}</span><h3>
+    <h3>Service Description: <span>{{ alerts.serviceDesc }}</span><h3>
+    <h3>On board Date: <span>{{ alerts.OnboardDate }}</span><h3>
+    <h3>Phone Number: <span>{{ alerts.msisdn }}</span><h3>
+    <h3>E Alert: <span>{{ alerts.eAlertTelPhone }}</span><h3>
+        {% if request.user.is_staff %}
+            <h3>STATUS : <span>{{ alerts.status }}</span><h3>
+        {% endif %}
+        </h3>
+
+        </h3>
+    </h3>
+
+
+
+        </div>
+    </div>
+    </div>
+{% endblock %}

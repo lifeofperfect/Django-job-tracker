@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+
+            <ol class="breadcrumb my-4">
+                <li class="breadcrumb-item active"><h1>UNDEFINED</h1></li>
+            </ol>
+
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'not_reacted' %}">Not Reacted</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'undefined_alert' %}">UNDEFINED</a>
+                </li>
+                {% if request.user.is_staff %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'true_positive' %}">True Positive</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'false_positive' %}">False Positive</a>
+                </li>
+                {% endif %}
+            </ul>
+
+            <table class='table table-striped'>
+    <thead class='thead-dark'>
+        <tr>
+        <th>Account Details</th>
+            <th>-</th>
+        <th>Branch</th>
+        <th>Amount</th>
+        <th>Value Date</th>
+        <th>Class</th>
+        <th>Customer Number</th>
+        <th>Total TNX</th>
+        <th>status</th>
+        <th>Author</th>
+        <th>Date</th>
+        <th>Remarks</th>
+
+        <th>Edit</th>
+        <tr/>
+    </thead>
+    <tbody>
+
+
+        {% for alert in alerts %}
+        <tr>
+
+            <td><a href="{{ alert.get_absolute_url }}">{{ alert.AC_NO }}</a><br/>
+                <small class="text-muted d-block"><a href="{{ alert.get_absolute_url }}">{{ alert.ac_name }}</a></small><td>
+            <td class='align-middle'>{{ alert.AC_BRANCH }}</td>
+            <td class='align-middle'>{{ alert.LCY_AMOUNT }}</td>
+            <td class='align-middle'>{{ alert.VALUE_DT }}</td>
+            <td class='align-middle'>{{ alert.ACCOUNT_CLASS }}</td>
+            <td class='align-middle'>{{ alert.CUST_NO }}</td>
+            <td class='align-middle'>{{ alert.TotalTnx }}</td>
+            <td class='align-middle'>{{ alert.status }}</td>
+            <td class='align-middle'>{{ alert.user }}</td>
+            <td class='align-middle'>{{ alert.edit_date|timesince }}</td>
+            <td class="align-middle">{{ alert.comment }}</td>
+            <td><div class="mb-4">
+                <a href="{% url 'update_alert' alert.pk %}" class="btn btn-primary">Comment</a>
+    </div></td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+
+
+
+
+    </div>
+
+    <div class="container">
+         <div class="pagination">
+
+            {% if alerts.has_previous %}
+                <a class="pagination-action" href="?page=1">
+                    <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                </a>
+                <a class="pagination-action" href="?page={{ alerts.previous_page_number }}">
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                </a>
+            {% endif %}
+
+            {% for num in alerts.paginator.page_range %}
+
+                {% if alerts.number == num %}
+                    <span class="pagination-number pagination-current">{{ num }}</span>
+                {% elif num > alerts.number|add:'-3' and num < alerts.number|add:'3' %}
+                    <a class="pagination-number" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+
+            {% endfor %}
+
+            {% if alerts.has_next %}
+                <a class="pagination-action" href="?page={{ alerts.next_page_number }}">
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+                <a class="pagination-action" href="?page={{ alerts.paginator.num_pages }}">
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                </a>
+            {% endif %}
+
+            </div>
+    </div>
+
+{% endblock %}

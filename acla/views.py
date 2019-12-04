@@ -66,7 +66,10 @@ def alert_false_positive_view(request):
 @login_required()
 def alert_detail(request, id):
     alerts = get_object_or_404(Suspicious, id=id)
-    context = {'alerts': alerts}
+    undefined = Suspicious.objects.filter(status='UNDEFINED')
+
+    context = {'alerts': alerts,
+               'undefined':undefined}
     template_name = 'alert_details.html'
     return render(request, template_name, context)
 
@@ -74,6 +77,7 @@ def alert_detail(request, id):
 def update_alert(request, id):
     alerts = get_object_or_404(Suspicious, id=id)
     forms = Alert_comment_form(request.POST or None, instance=alerts)
+    undefined = Suspicious.objects.filter(status='UNDEFINED')
 
     if forms.is_valid():
         alerts.user = request.user
@@ -83,7 +87,9 @@ def update_alert(request, id):
         return redirect('not_reacted')
 
     template_name = 'forms.html'
-    context = {'alerts': alerts, 'forms': forms}
+    context = {'alerts': alerts,
+               'forms': forms,
+               'undefined':undefined}
     return render(request, template_name, context)
 
 

@@ -4,7 +4,7 @@
 {% block title %}Create an account{% endblock %}
 
 {% block content %}
-
+    {% if request.user.is_staff %}
     <ol class="breadcrumb my-4">
         <li class="breadcrumb-item active"><h1><strong>SIGNUP</strong></h1></li>
       </ol>
@@ -24,5 +24,7 @@
         </form></div>
 
     </div>
-
+        {% else %}
+        <h1><strong>Meet you supervisor to signUp</strong></h1>
+{%  endif %}
 {% endblock %}

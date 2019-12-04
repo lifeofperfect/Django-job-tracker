@@ -60,7 +60,7 @@
             <td class='align-middle'>{{ alert.ACCOUNT_CLASS }}</td>
             <td class='align-middle'>{{ alert.CUST_NO }}</td>
             <td class='align-middle'>{{ alert.TotalTnx }}</td>
-            <td><div class="mb-4"><button type="button" class="btn btn-primary"><a href="{% url 'update_alert' alert.pk %}" class="text-white">Comment</a></button></div></td>
+            <td><div class="mb-4"><button type="button" class="btn btn-primary"><a href="{% url 'update_alert' alert.pk %}" class="text-white" data-toggle="tooltip"  data-placement="bottom" title="make a remark">Comment</a></button></div></td>
         </tr>
         {% endfor %}
 
